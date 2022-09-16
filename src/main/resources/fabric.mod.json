@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "questify",
+  "version": "${version}",
+  "name": "Questify",
+  "description": "A questbook mod with a vanilla style. Questify supports a wide range of quest types, rewards, includes an optional currency system for modpack creators, and more features you'd expect from a fully featured quest mod.",
+  "authors": [
+    "fzzyhmstrs"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/amethyst-imbuement",
+    "issues": "https://github.com/fzzyhmstrs/ai/issues",
+    "sources": "https://github.com/fzzyhmstrs/ai"
+  },
+  "license": "MIT License",
+  "icon": "assets/questify/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "me.fzzyhmstrs.questify.Questify"
+      }
+    ]
+  },
+  "mixins": [
+    "questify.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "fabric-language-kotlin": ">=1.7.0+kotlin.1.6.0",
+    "minecraft": ">=1.18",
+    "java": ">=17"
+  }
+}
