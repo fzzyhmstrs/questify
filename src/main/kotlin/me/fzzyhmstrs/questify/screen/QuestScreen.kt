@@ -6,12 +6,13 @@ import me.fzzyhmstrs.questify.widgets.QuestAreaWidget
 import me.fzzyhmstrs.questify.widgets.SidebarWidget
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.gui.screen.Screen
+import net.minecraft.client.network.ClientPlayerEntity
 import net.minecraft.client.render.GameRenderer
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
 
-class QuestScreen: Screen(TranslatableText("questify.screen.title")) {
+class QuestScreen(private val player: ClientPlayerEntity): Screen(TranslatableText("questify.screen.title")) {
 
     companion object{
         private val SCREEN_TEX = Identifier(Questify.MOD_ID,"textures/gui/buttons_widgets.png")
@@ -25,7 +26,15 @@ class QuestScreen: Screen(TranslatableText("questify.screen.title")) {
         super.init()
         sidebarHeight = this.height
         questAreaWidth = this.width - SidebarWidget.sidebarWidth
-        if (questAreaWidth <= (QuestAreaWidget.borderWidth + QuestAreaWidget.minViewableWidth)) close()
+        if (questAreaWidth <= (QuestAreaWidget.borderWidth + QuestAreaWidget.minViewableWidth)) {
+            player.sendMessage(TranslatableText("questify.screen.too_narrow"),false)
+            close()
+        }
+        if (height <= (QuestAreaWidget.borderWidth + QuestAreaWidget.minViewableWidth)) {
+            player.sendMessage(TranslatableText("questify.screen.too_short"),false)
+            close()
+        }
+
 
     }
 
