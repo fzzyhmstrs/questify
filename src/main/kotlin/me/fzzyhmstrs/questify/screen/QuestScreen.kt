@@ -13,12 +13,12 @@ import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
 
-class QuestScreen(private val player: ClientPlayerEntity, val oldScreen: Screen): Screen(TranslatableText("questify.screen.title")) {
+class QuestScreen(private val player: ClientPlayerEntity, val oldScreen: Screen?): Screen(TranslatableText("questify.screen.title")) {
 
     companion object{
-        private val SCREEN_TEX = Identifier(Questify.MOD_ID,"textures/gui/buttons_widgets.png")
+        internal val SCREEN_TEX = Identifier(Questify.MOD_ID,"textures/gui/buttons_widgets.png")
 
-        fun openQuestScreen(player: ClientPlayerEntity, oldScreen: Screen){
+        fun openQuestScreen(player: ClientPlayerEntity, oldScreen: Screen?){
             MinecraftClient.getInstance().setScreen(QuestScreen(player, oldScreen))
         }
     }
@@ -37,16 +37,19 @@ class QuestScreen(private val player: ClientPlayerEntity, val oldScreen: Screen)
             player.sendMessage(TranslatableText("questify.screen.too_short"),false)
             close()
         }
-
-
+        sidebarWidget = SidebarWidget(height)
+        setInitialFocus(sidebarWidget)
     }
 
-    override fun render(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {
+    override fun render(matrices: MatrixStack, mouseX: Int, mouseY: Int, delta: Float) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.setShaderTexture(0, SCREEN_TEX)
         RenderSystem.setShaderColor(1.0f,1.0f,1.0f,1.0f)
         //start by filling in the background with the dark grey color
         DrawableHelper.fill(matrices,0,0,this.width,this.height,0x373737)
+        //draw the two main widgets. Quest are first so it is "under" the sidebar.
+        questAreaWidget?.draw(matrices, mouseX, mouseY, delta)
+        sidebarWidget?.draw(matrices, mouseX, mouseY, delta)
     }
 
     override fun close() {

@@ -2,6 +2,7 @@ package me.fzzyhmstrs.questify
 
 import me.fzzyhmstrs.questify.registry.RegisterCommand
 import me.fzzyhmstrs.questify.registry.RegisterItem
+import me.fzzyhmstrs.questify.registry.RegisterKeybind
 import me.fzzyhmstrs.questify.registry.RegisterScreen
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.ModInitializer
@@ -22,6 +23,7 @@ object QuestifyClient: ClientModInitializer{
 
     override fun onInitializeClient() {
         RegisterScreen.registerAll()
+        RegisterKeybind.registerAll()
     }
 
 }
