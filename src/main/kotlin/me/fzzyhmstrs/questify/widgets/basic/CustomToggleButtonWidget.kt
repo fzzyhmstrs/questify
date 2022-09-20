@@ -22,13 +22,11 @@ open class CustomToggleButtonWidget(
     height: Int,
     private val toggleOffset: Int,
     private val hoverOffset: Int,
-    private val tooltip: List<Text>):
-    ClickableWidget(x,y,width,height,LiteralText.EMPTY) {
+    tooltip: List<Text>,
+    pressAction: PressAction):
+    AlertableWidget(x,y,width,height,tooltip,pressAction) {
 
-    protected var toggled: Boolean = false
-    protected var alerted: Boolean = false
-    protected var alert: AlertUtils.AbstractAlert = AlertUtils.IconAlert.EMPTY
-    protected var pressAction: PressAction? = null
+    private var toggled: Boolean = false
 
     var uu: Int = u + if (toggled) toggleOffset else 0
 
@@ -36,58 +34,20 @@ open class CustomToggleButtonWidget(
         uu = u + if (toggled) toggleOffset else 0
         this.toggled = toggled
     }
-
-    fun setAlerted(alert: AlertUtils.AbstractAlert){
-        alerted = alert != AlertUtils.IconAlert.EMPTY
-        this.alert = alert
-    }
-    fun clearAlert(){
-        setAlerted(AlertUtils.IconAlert.EMPTY)
+    
+    fun isToggled(): Boolean{
+        return toggled
     }
 
-    fun setPos(x: Int, y: Int) {
-        this.x = x
-        this.y = y
-    }
-
-    override fun onClick(mouseX: Double, mouseY: Double) {
-        onPressed(mouseX, mouseY)
-    }
-
-    open fun onPressed(mouseX: Double, mouseY: Double){
-        pressAction?.onPress(this)
-    }
-
-    override fun renderButton(matrices: MatrixStack, mouseX: Int, mouseY: Int, delta: Float) {
+    override fun renderButtonBase(matrices: MatrixStack, mouseX: Int, mouseY: Int, delta: Float) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.disableDepthTest()
         val vv = v + if (hovered) hoverOffset else 0
         this.drawTexture(matrices, x, y, uu, vv, width, height)
         RenderSystem.enableDepthTest()
-        renderButtonIcon(matrices, mouseX, mouseY, delta)
-        if (alerted){
-            AlertUtils.drawAlert(matrices, alert, x, y, hovered)
-        }
-        if (hovered){
-            renderTooltip(matrices, mouseX, mouseY)
-        }
-    }
-
-    open fun renderButtonIcon(matrices: MatrixStack, mouseX: Int, mouseY: Int, delta: Float){
-    }
-
-    override fun renderTooltip(matrices: MatrixStack, mouseX: Int, mouseY: Int) {
-        TextureUtils.renderQuestTooltip(matrices,tooltip,mouseX, mouseY)
     }
 
     override fun appendNarrations(builder: NarrationMessageBuilder?) {
         this.appendDefaultNarrations(builder)
     }
-
-
-    @Environment(value = EnvType.CLIENT)
-    interface PressAction {
-        fun onPress(var1: CustomToggleButtonWidget?)
-    }
-
 }
