@@ -24,6 +24,7 @@ open class AlertableWidget(
 
     protected var alerted: Boolean = false
     protected var alert: AlertUtils.AbstractAlert = AlertUtils.IconAlert.EMPTY
+    private var alertX = x + width - AlertUtils.ALERT_W
 
     fun setAlerted(alert: AlertUtils.AbstractAlert){
         alerted = alert != AlertUtils.IconAlert.EMPTY
@@ -36,6 +37,7 @@ open class AlertableWidget(
     fun setPos(x: Int, y: Int) {
         this.x = x
         this.y = y
+        alertX = x + width - AlertUtils.ALERT_W
     }
 
     override fun onClick(mouseX: Double, mouseY: Double) {
@@ -50,7 +52,7 @@ open class AlertableWidget(
         renderButtonBase(matrices, mouseX, mouseY, delta)
         renderButtonIcon(matrices, mouseX, mouseY, delta)
         if (alerted){
-            AlertUtils.drawAlert(matrices, alert, x, y, hovered)
+            AlertUtils.drawAlert(matrices, alert, alertX, y, hovered)
         }
         if (hovered){
             renderTooltip(matrices, mouseX, mouseY)
