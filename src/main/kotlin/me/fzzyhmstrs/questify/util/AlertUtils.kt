@@ -5,10 +5,13 @@ import net.minecraft.client.util.math.MatrixStack
 
 object AlertUtils: DrawableHelper() {
 
+    const val ALERT_W = 10
+    const val ALERT_H = 12
+    
 
     fun drawAlert(matrices: MatrixStack, alert: AbstractAlert, x: Int, y: Int, hovered: Boolean){
         val u = if (hovered) alert.hover else alert.u
-        this.drawTexture(matrices,x,y,u,alert.v,10,12)
+        this.drawTexture(matrices,x,y,u,alert.v,ALERT_W,ALERT_H)
     }
 
     enum class IconAlert(override val u: Int, override val v: Int): AbstractAlert{
