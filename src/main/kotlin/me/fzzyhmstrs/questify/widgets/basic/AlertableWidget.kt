@@ -73,7 +73,7 @@ open class AlertableWidget(
 
     @Environment(value = EnvType.CLIENT)
     interface PressAction {
-        fun onPress(var1: CustomToggleButtonWidget?)
+        fun onPress(var1: AlertableWidget?)
     }
 
 }
