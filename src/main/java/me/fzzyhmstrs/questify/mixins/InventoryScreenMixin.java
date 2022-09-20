@@ -2,6 +2,7 @@ package me.fzzyhmstrs.questify.mixins;
 
 import me.fzzyhmstrs.questify.config.QuestifyConfig;
 import me.fzzyhmstrs.questify.screen.QuestScreen;
+import me.fzzyhmstrs.questify.util.TextureUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -38,7 +39,7 @@ public abstract class InventoryScreenMixin extends HandledScreen<PlayerScreenHan
                         18,
                         172,
                         0,
-                        QuestScreen.Companion.getSCREEN_TEX$questify_main(), (button) -> QuestScreen.Companion.openQuestScreen(bookPlayer, (InventoryScreen) (Object) this)
+                        TextureUtils.INSTANCE.getSCREEN_TEX$questify_main(), (button) -> QuestScreen.Companion.openQuestScreen(bookPlayer, (InventoryScreen) (Object) this)
                 );
                 this.addDrawableChild(questBookWidget);
             }

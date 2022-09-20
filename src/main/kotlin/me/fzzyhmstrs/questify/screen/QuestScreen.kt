@@ -2,6 +2,8 @@ package me.fzzyhmstrs.questify.screen
 
 import com.mojang.blaze3d.systems.RenderSystem
 import me.fzzyhmstrs.questify.Questify
+import me.fzzyhmstrs.questify.util.TextureUtils
+import me.fzzyhmstrs.questify.util.TextureUtils.SCREEN_TEX
 import me.fzzyhmstrs.questify.widgets.QuestAreaWidget
 import me.fzzyhmstrs.questify.widgets.SidebarWidget
 import net.minecraft.client.MinecraftClient
@@ -16,7 +18,6 @@ import net.minecraft.util.Identifier
 class QuestScreen(private val player: ClientPlayerEntity, val oldScreen: Screen?): Screen(TranslatableText("questify.screen.title")) {
 
     companion object{
-        internal val SCREEN_TEX = Identifier(Questify.MOD_ID,"textures/gui/buttons_widgets.png")
 
         fun openQuestScreen(player: ClientPlayerEntity, oldScreen: Screen?){
             MinecraftClient.getInstance().setScreen(QuestScreen(player, oldScreen))
@@ -39,6 +40,8 @@ class QuestScreen(private val player: ClientPlayerEntity, val oldScreen: Screen?
         }
         sidebarWidget = SidebarWidget(height)
         setInitialFocus(sidebarWidget)
+
+        TextureUtils.setQuestScreen(this)
     }
 
     override fun render(matrices: MatrixStack, mouseX: Int, mouseY: Int, delta: Float) {
@@ -54,6 +57,7 @@ class QuestScreen(private val player: ClientPlayerEntity, val oldScreen: Screen?
 
     override fun close() {
         super.close()
+        TextureUtils.setQuestScreen(null)
         client?.setScreen(oldScreen)
     }
 
