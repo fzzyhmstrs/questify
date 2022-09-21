@@ -2,15 +2,9 @@ package me.fzzyhmstrs.questify.widgets.basic
 
 import com.mojang.blaze3d.systems.RenderSystem
 import me.fzzyhmstrs.questify.util.AlertUtils
-import me.fzzyhmstrs.questify.util.TextureUtils
-import net.fabricmc.api.EnvType
-import net.fabricmc.api.Environment
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder
-import net.minecraft.client.gui.widget.ButtonWidget
-import net.minecraft.client.gui.widget.ClickableWidget
 import net.minecraft.client.render.GameRenderer
 import net.minecraft.client.util.math.MatrixStack
-import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
 
 open class CustomToggleButtonWidget(
@@ -20,11 +14,13 @@ open class CustomToggleButtonWidget(
     private val v: Int,
     width: Int,
     height: Int,
+    alertXOffset: Int = AlertUtils.ALERT_W,
+    alertYOffset: Int = 0,
     private val toggleOffset: Int,
     private val hoverOffset: Int,
     tooltip: List<Text>,
     pressAction: PressAction):
-    AlertableWidget(x,y,width,height,tooltip,pressAction) {
+    AlertableWidget(x,y,width,height,alertXOffset,alertYOffset,tooltip,pressAction) {
 
     private var toggled: Boolean = false
 

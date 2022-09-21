@@ -11,7 +11,7 @@ class QuestAreaWidget(var width: Int, var height: Int, var xOffset: Int): Drawab
 
     companion object{
         const val borderWidth = 16
-        const val minViewableWidth = 66
+        const val minViewableWidth = 132
         const val borderTexHeight = 240
         const val borderTexWidth = 256
     }

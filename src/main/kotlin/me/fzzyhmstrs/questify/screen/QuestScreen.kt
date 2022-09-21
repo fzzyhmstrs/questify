@@ -6,6 +6,7 @@ import me.fzzyhmstrs.questify.util.TextureUtils
 import me.fzzyhmstrs.questify.util.TextureUtils.SCREEN_TEX
 import me.fzzyhmstrs.questify.widgets.QuestAreaWidget
 import me.fzzyhmstrs.questify.widgets.SidebarWidget
+import me.fzzyhmstrs.questify.widgets.basic.MenuWidget
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.gui.screen.Screen
@@ -26,6 +27,7 @@ class QuestScreen(private val player: ClientPlayerEntity, val oldScreen: Screen?
     private var questAreaWidth = 0
     private var questAreaWidget: QuestAreaWidget? = null
     private var sidebarWidget: SidebarWidget? = null
+    private var menuWidget: MenuWidget? = null
 
     override fun init() {
         super.init()
@@ -59,6 +61,10 @@ class QuestScreen(private val player: ClientPlayerEntity, val oldScreen: Screen?
         super.close()
         TextureUtils.setQuestScreen(null)
         client?.setScreen(oldScreen)
+    }
+
+    fun setMenuWidget(menu: MenuWidget){
+        this.menuWidget = menu
     }
 
 }
